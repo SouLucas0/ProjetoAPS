@@ -21,8 +21,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Flame, AlertCircle, Circle, Trophy, BarChart2 } from 'lucide-react';
+import { Flame, AlertCircle, Circle, Trophy, BarChart2, Undo2 } from 'lucide-react';
 import { type Tarefa } from '@/lib/types';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 const priorityBadgeVariant = {
   alta: 'destructive',
@@ -44,7 +46,8 @@ const priorityIcons = {
 
 
 export default function HistoryPage() {
-  const { tasks } = useTasks();
+  const { tasks, updateTask } = useTasks();
+  const { toast } = useToast();
 
   const completedTasks = useMemo(
     () => tasks.filter((task) => task.status === 'concluida').sort((a, b) => parseISO(b.dataConclusao!).getTime() - parseISO(a.dataConclusao!).getTime()),
@@ -59,6 +62,18 @@ export default function HistoryPage() {
         return acc;
     }, {} as Record<Tarefa['prioridade'], number>);
   }, [completedTasks])
+
+  const handleUncompleteTask = (task: Tarefa) => {
+    updateTask(task.id, {
+        ...task,
+        status: 'pendente',
+        dataConclusao: undefined,
+    });
+    toast({
+        title: "Tarefa Restaurada!",
+        description: `A tarefa "${task.titulo}" foi movida de volta para o painel.`,
+    })
+  }
 
   return (
     <>
@@ -119,8 +134,9 @@ export default function HistoryPage() {
                 <TableRow>
                   <TableHead>Tarefa</TableHead>
                   <TableHead className="text-center">Prioridade</TableHead>
-                  <TableHead className="text-right">Data de Entrega</TableHead>
-                  <TableHead className="text-right">Data de Conclusão</TableHead>
+                  <TableHead>Data de Entrega</TableHead>
+                  <TableHead>Data de Conclusão</TableHead>
+                   <TableHead className="text-right">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -141,20 +157,25 @@ export default function HistoryPage() {
                           {priorityDisplayText[task.prioridade]}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell>
                         {format(parseISO(task.dataEntrega), 'dd/MM/yyyy')}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell>
                         {task.dataConclusao
                           ? format(parseISO(task.dataConclusao), 'dd/MM/yyyy')
                           : '-'}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="icon" onClick={() => handleUncompleteTask(task)} title="Desconcluir tarefa">
+                           <Undo2 className="h-4 w-4"/>
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
                     <TableCell
-                      colSpan={4}
+                      colSpan={5}
                       className="h-24 text-center"
                     >
                       Nenhuma tarefa concluída ainda.
