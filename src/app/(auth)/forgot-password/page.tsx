@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { login } from '@/lib/firebase/auth';
+import { sendPasswordReset } from '@/lib/firebase/auth';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -24,22 +24,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { type LoginFormData } from '@/lib/types';
 import { Loader2 } from 'lucide-react';
 
-const loginSchema = z.object({
+const forgotPasswordSchema = z.object({
   email: z.string().email({ message: 'Por favor, insira um e-mail válido.' }),
-  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres.' }),
 });
 
-export default function LoginPage() {
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
+export default function ForgotPasswordPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: '',
-      password: '',
     },
   });
 
@@ -47,25 +46,30 @@ export default function LoginPage() {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit = async (data: LoginFormData) => {
-    const { user, error } = await login(data);
+  const onSubmit = async (data: ForgotPasswordFormData) => {
+    const { error } = await sendPasswordReset(data.email);
     if (error) {
       toast({
         variant: 'destructive',
-        title: 'Erro ao entrar',
-        description: 'E-mail ou senha incorretos. Por favor, tente novamente.',
+        title: 'Erro',
+        description: 'Não foi possível enviar o e-mail de redefinição. Verifique o e-mail e tente novamente.',
       });
     } else {
-      router.push('/');
+      toast({
+        title: 'E-mail Enviado!',
+        description: 'Verifique sua caixa de entrada para redefinir sua senha.',
+      });
+      router.push('/login');
     }
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl font-headline">Entrar</CardTitle>
+        <CardTitle className="text-2xl font-headline">Esqueceu a senha?</CardTitle>
         <CardDescription>
-          Digite seu e-mail e senha para acessar sua conta.
+          Não se preocupe! Digite seu e-mail e enviaremos um link para você
+          redefinir sua senha.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -79,30 +83,9 @@ export default function LoginPage() {
                   <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Karol@gmail.com"
+                      placeholder="seuemail@exemplo.com"
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                   <div className="flex items-center">
-                    <FormLabel>Senha</FormLabel>
-                    <Link
-                      href="/forgot-password"
-                      className="ml-auto inline-block text-sm underline"
-                    >
-                      Esqueceu a senha?
-                    </Link>
-                  </div>
-                  <FormControl>
-                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,14 +95,14 @@ export default function LoginPage() {
               {isSubmitting && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
-              Entrar
+              Enviar E-mail de Redefinição
             </Button>
           </form>
         </Form>
         <div className="mt-4 text-center text-sm">
-          Não tem uma conta?{' '}
-          <Link href="/register" className="underline">
-            Cadastre-se
+          Lembrou da sua senha?{' '}
+          <Link href="/login" className="underline">
+            Entrar
           </Link>
         </div>
       </CardContent>

@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
   updateProfile,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import firebaseApp from './config';
 import { LoginFormData, RegisterFormData } from '../types';
@@ -44,6 +45,15 @@ export async function register(data: RegisterFormData) {
 export async function signOut() {
   try {
     await firebaseSignOut(auth);
+    return { error: null };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+}
+
+export async function sendPasswordReset(email: string) {
+  try {
+    await sendPasswordResetEmail(auth, email);
     return { error: null };
   } catch (error: any) {
     return { error: error.message };
