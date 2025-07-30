@@ -60,33 +60,39 @@ export default function RegisterPage() {
   } = form;
 
   const onSubmit = async (data: RegisterFormData) => {
-    const { user, error } = await register(data);
-    if (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao criar conta',
-        description: 'Não foi possível criar a conta. O e-mail já pode estar em uso.',
-      });
-    } else {
-      toast({
-        title: 'Conta Criada!',
-        description: 'Sua conta foi criada com sucesso. Bem-vindo!',
-      });
-      router.push('/');
-    }
+    // Para fins de teste, redireciona diretamente.
+    router.push('/');
+    
+    // const { user, error } = await register(data);
+    // if (error) {
+    //   toast({
+    //     variant: 'destructive',
+    //     title: 'Erro ao criar conta',
+    //     description: 'Não foi possível criar a conta. O e-mail já pode estar em uso.',
+    //   });
+    // } else {
+    //   toast({
+    //     title: 'Conta Criada!',
+    //     description: 'Sua conta foi criada com sucesso. Bem-vindo!',
+    //   });
+    //   router.push('/');
+    // }
   };
 
   const handleGoogleSignIn = async () => {
-    const { user, error } = await signInWithGoogle();
-    if (error) {
-       toast({
-        variant: 'destructive',
-        title: 'Erro ao entrar com o Google',
-        description: 'Não foi possível fazer login com o Google. Tente novamente mais tarde.',
-      });
-    } else {
-        router.push('/');
-    }
+    // Para fins de teste, redireciona diretamente.
+    router.push('/');
+
+    // const { user, error } = await signInWithGoogle();
+    // if (error) {
+    //    toast({
+    //     variant: 'destructive',
+    //     title: 'Erro ao entrar com o Google',
+    //     description: 'Não foi possível fazer login com o Google. Tente novamente mais tarde.',
+    //   });
+    // } else {
+    //     router.push('/');
+    // }
   }
 
   return (

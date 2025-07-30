@@ -58,29 +58,35 @@ export default function LoginPage() {
   } = form;
 
   const onSubmit = async (data: LoginFormData) => {
-    const { user, error } = await login(data);
-    if (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao entrar',
-        description: 'E-mail ou senha incorretos. Por favor, tente novamente.',
-      });
-    } else {
-      router.push('/');
-    }
+    // Para fins de teste, redireciona diretamente.
+    router.push('/');
+    
+    // const { user, error } = await login(data);
+    // if (error) {
+    //   toast({
+    //     variant: 'destructive',
+    //     title: 'Erro ao entrar',
+    //     description: 'E-mail ou senha incorretos. Por favor, tente novamente.',
+    //   });
+    // } else {
+    //   router.push('/');
+    // }
   };
 
   const handleGoogleSignIn = async () => {
-    const { user, error } = await signInWithGoogle();
-    if (error) {
-       toast({
-        variant: 'destructive',
-        title: 'Erro ao entrar com o Google',
-        description: 'Não foi possível fazer login com o Google. Tente novamente mais tarde.',
-      });
-    } else {
-        router.push('/');
-    }
+    // Para fins de teste, redireciona diretamente.
+    router.push('/');
+    
+    // const { user, error } = await signInWithGoogle();
+    // if (error) {
+    //    toast({
+    //     variant: 'destructive',
+    //     title: 'Erro ao entrar com o Google',
+    //     description: 'Não foi possível fazer login com o Google. Tente novamente mais tarde.',
+    //   });
+    // } else {
+    //     router.push('/');
+    // }
   }
 
   return (
