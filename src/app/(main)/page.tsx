@@ -1,14 +1,22 @@
-import { MOCK_TASKS } from '@/lib/mock-data';
+'use client';
+
+import { useTasks } from '@/hooks/use-tasks';
 import { TaskList } from '@/components/task-list';
 import { AiCoachCard } from '@/components/ai-coach-card';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Clock } from 'lucide-react';
 import { AddTask } from '@/components/add-task';
+import { useMemo } from 'react';
 
 export default function DashboardPage() {
-  const pendingTasks = MOCK_TASKS.filter(t => t.status === 'pendente').length;
-  const completedTasks = MOCK_TASKS.length - pendingTasks;
+  const { tasks } = useTasks();
+
+  const { pendingTasks, completedTasks } = useMemo(() => {
+    const pending = tasks.filter((t) => t.status === 'pendente');
+    const completed = tasks.filter((t) => t.status === 'concluida');
+    return { pendingTasks: pending.length, completedTasks: completed.length };
+  }, [tasks]);
 
   return (
     <>
@@ -19,7 +27,7 @@ export default function DashboardPage() {
         <AddTask />
       </PageHeader>
       <div className="space-y-6">
-        <TaskList initialTasks={MOCK_TASKS} />
+        <TaskList />
         <div className="grid gap-6 lg:grid-cols-2">
             <Card>
               <CardHeader>
@@ -42,7 +50,7 @@ export default function DashboardPage() {
                 </div>
               </CardContent>
             </Card>
-            <AiCoachCard tasks={MOCK_TASKS} />
+            <AiCoachCard />
         </div>
       </div>
     </>

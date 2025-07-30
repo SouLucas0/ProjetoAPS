@@ -13,7 +13,8 @@ import { useToast } from '@/hooks/use-toast';
 import { AlertCircle, ArrowRight, Calendar, CheckCircle2, Circle, Flame, MoreVertical, Pencil, Trash2 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { TaskForm } from './task-form';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from './ui/sheet';
+import { useTasks } from '@/hooks/use-tasks';
 
 
 const priorityIcons = {
@@ -40,36 +41,32 @@ const priorityDisplayText = {
   baixa: 'Baixa',
 };
 
-export function TaskList({ initialTasks }: { initialTasks: Tarefa[] }) {
-  const [tasks, setTasks] = useState<Tarefa[]>(initialTasks);
+export function TaskList() {
+  const { tasks, updateTask, deleteTask } = useTasks();
   const [editingTask, setEditingTask] = useState<Tarefa | null>(null);
   const [isSheetOpen, setSheetOpen] = useState(false);
   const { toast } = useToast();
 
   const handleTaskCompletion = (taskId: string, isCompleted: boolean) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              status: isCompleted ? 'concluida' : 'pendente',
-              dataConclusao: isCompleted ? new Date().toISOString() : undefined,
-            }
-          : task
-      )
-    );
-
-    if (isCompleted) {
-      const task = tasks.find(t => t.id === taskId);
-      toast({
-        title: 'Tarefa Concluída!',
-        description: `Parabéns por terminar "${task?.titulo}"!`,
-        action: (
-          <div className="p-2 rounded-full bg-green-500/20">
-             <CheckCircle2 className="h-5 w-5 text-green-500" />
-          </div>
-        ),
+    const taskToUpdate = tasks.find(t => t.id === taskId);
+    if (taskToUpdate) {
+      updateTask(taskId, {
+        ...taskToUpdate,
+        status: isCompleted ? 'concluida' : 'pendente',
+        dataConclusao: isCompleted ? new Date().toISOString() : undefined,
       });
+
+      if (isCompleted) {
+        toast({
+          title: 'Tarefa Concluída!',
+          description: `Parabéns por terminar "${taskToUpdate.titulo}"!`,
+          action: (
+            <div className="p-2 rounded-full bg-green-500/20">
+              <CheckCircle2 className="h-5 w-5 text-green-500" />
+            </div>
+          ),
+        });
+      }
     }
   };
 
@@ -79,7 +76,7 @@ export function TaskList({ initialTasks }: { initialTasks: Tarefa[] }) {
   }
 
   const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+    deleteTask(taskId);
     toast({
       title: 'Tarefa Excluída',
       variant: 'destructive',
@@ -88,18 +85,8 @@ export function TaskList({ initialTasks }: { initialTasks: Tarefa[] }) {
 
   const handleFormSubmit = (taskData: Omit<Tarefa, 'id' | 'status'>) => {
     if (editingTask) {
-      // Edit
-      setTasks(tasks.map(task => task.id === editingTask.id ? { ...editingTask, ...taskData } : task));
+      updateTask(editingTask.id, { ...editingTask, ...taskData });
       toast({ title: 'Tarefa atualizada com sucesso!'});
-    } else {
-      // Add
-      const newTask: Tarefa = {
-        id: (tasks.length + 1).toString(),
-        ...taskData,
-        status: 'pendente',
-      };
-      setTasks([...tasks, newTask]);
-      toast({ title: 'Tarefa adicionada com sucesso!'});
     }
     setSheetOpen(false);
     setEditingTask(null);

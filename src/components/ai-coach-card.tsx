@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { getTaskCompletionSuggestions } from '@/ai/flows/task-completion-suggestions';
-import { type Tarefa } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Lightbulb, Zap } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from "framer-motion";
+import { useTasks } from '@/hooks/use-tasks';
 
-export function AiCoachCard({ tasks }: { tasks: Tarefa[] }) {
+export function AiCoachCard() {
+  const { tasks } = useTasks();
   const [suggestions, setSuggestions] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

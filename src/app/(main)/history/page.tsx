@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { MOCK_TASKS } from '@/lib/mock-data';
+import { useTasks } from '@/hooks/use-tasks';
 import { PageHeader } from '@/components/page-header';
 import {
   Card,
@@ -21,7 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Flame, AlertCircle, Circle, Trophy, BarChart2, CheckCircle } from 'lucide-react';
+import { Flame, AlertCircle, Circle, Trophy, BarChart2 } from 'lucide-react';
 import { type Tarefa } from '@/lib/types';
 
 const priorityBadgeVariant = {
@@ -44,9 +44,11 @@ const priorityIcons = {
 
 
 export default function HistoryPage() {
+  const { tasks } = useTasks();
+
   const completedTasks = useMemo(
-    () => MOCK_TASKS.filter((task) => task.status === 'concluida').sort((a, b) => parseISO(b.dataConclusao!).getTime() - parseISO(a.dataConclusao!).getTime()),
-    []
+    () => tasks.filter((task) => task.status === 'concluida').sort((a, b) => parseISO(b.dataConclusao!).getTime() - parseISO(a.dataConclusao!).getTime()),
+    [tasks]
   );
 
   const totalCompleted = completedTasks.length;
