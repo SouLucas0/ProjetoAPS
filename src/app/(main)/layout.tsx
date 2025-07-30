@@ -108,18 +108,6 @@ export default function DashboardLayout({
             <SidebarMenuItem>
               <SidebarMenuButton
                 asChild
-                isActive={isActive('/history')}
-                tooltip="Histórico de Tarefas"
-              >
-                <Link href="/history">
-                  <History />
-                  <span>Histórico</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
                 isActive={isActive('/settings')}
                 tooltip="Configurações"
               >
