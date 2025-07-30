@@ -90,12 +90,12 @@ export default function DashboardLayout({
           <div className="flex items-center gap-3 p-2">
             <Avatar>
               <AvatarImage src="https://placehold.co/100x100.png" alt="Avatar do Usuário" data-ai-hint="profile picture" />
-              <AvatarFallback>JS</AvatarFallback>
+              <AvatarFallback>LE</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <span className="font-semibold text-sm">Joana Silva</span>
+              <span className="font-semibold text-sm">Lucas E</span>
               <span className="text-xs text-muted-foreground">
-                joana.silva@exemplo.com
+                lucaseman18@gmail.com
               </span>
             </div>
           </div>

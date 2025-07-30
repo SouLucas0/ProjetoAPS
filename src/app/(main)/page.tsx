@@ -12,7 +12,7 @@ export default function DashboardPage() {
   return (
     <>
       <PageHeader
-        title="Bem-vinda de volta, Joana!"
+        title="Bem-vindo de volta, Lucas!"
         description="Aqui está o que você tem para hoje."
       />
       <div className="grid gap-6 lg:grid-cols-3">
