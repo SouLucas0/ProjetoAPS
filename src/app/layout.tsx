@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Academia Conecta',
+  title: 'Sistema Integrado de Organização Acadêmica',
   description: 'Seu gerenciador de tarefas acadêmicas pessoal.',
 };
 
