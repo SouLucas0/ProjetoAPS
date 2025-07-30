@@ -2,20 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { getTaskCompletionSuggestions } from '@/ai/flows/task-completion-suggestions';
-import { type Task } from '@/lib/types';
+import { type Tarefa } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Lightbulb, Zap } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from "framer-motion";
 
-export function AiCoachCard({ tasks }: { tasks: Task[] }) {
+export function AiCoachCard({ tasks }: { tasks: Tarefa[] }) {
   const [suggestions, setSuggestions] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const taskHistory = JSON.stringify(
-    tasks.filter((t) => t.status === 'completed')
+    tasks.filter((t) => t.status === 'concluida')
   );
 
   const fetchSuggestions = async () => {
@@ -79,7 +79,7 @@ export function AiCoachCard({ tasks }: { tasks: Task[] }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          className="text-sm whitespace-pre-wrap font-light"
+          className="text-sm whitespace-pre-wrap font-light text-foreground/90 dark:text-foreground/80"
         >
           {suggestions}
         </motion.div>
@@ -88,9 +88,9 @@ export function AiCoachCard({ tasks }: { tasks: Task[] }) {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-primary via-accent to-secondary text-primary-foreground border-0 shadow-lg">
+    <Card className="bg-gradient-to-br from-primary/70 via-accent to-secondary dark:from-primary/30 dark:via-accent dark:to-background border-0 shadow-lg">
       <CardHeader>
-        <CardTitle className="font-headline text-2xl flex items-center gap-2">
+        <CardTitle className="font-headline text-2xl flex items-center gap-2 text-foreground dark:text-primary-foreground">
           <Lightbulb />
           Coach de Tarefas IA
         </CardTitle>
