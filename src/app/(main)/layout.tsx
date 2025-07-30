@@ -68,8 +68,8 @@ export default function DashboardLayout({
 
   // Since we are bypassing auth, we need a mock user for the UI
   const mockUser = {
-    displayName: 'Usuário Teste',
-    email: 'teste@exemplo.com',
+    displayName: 'Lucas E',
+    email: 'lucaseman18@gmail.com',
     photoURL: `https://placehold.co/100x100.png`
   };
 
@@ -129,6 +129,15 @@ export default function DashboardLayout({
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={handleSignOut}
+                tooltip="Sair"
+              >
+                <LogOut />
+                <span>Sair</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
@@ -145,10 +154,6 @@ export default function DashboardLayout({
               </span>
             </div>
           </div>
-          <Button variant="ghost" className="w-full justify-start mt-2" onClick={handleSignOut}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Sair
-          </Button>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
