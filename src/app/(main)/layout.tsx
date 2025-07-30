@@ -9,6 +9,7 @@ import {
   LogOut,
   Settings,
   Loader2,
+  Users,
 } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { signOut } from '@/lib/firebase/auth';
@@ -125,6 +126,18 @@ export default function DashboardLayout({
                   <Link href="/settings">
                     <Settings />
                     <span>Configurações</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive('/discentes')}
+                  tooltip="Discentes"
+                >
+                  <Link href="/discentes">
+                    <Users />
+                    <span>Discentes</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
