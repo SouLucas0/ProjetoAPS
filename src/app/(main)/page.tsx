@@ -4,9 +4,10 @@ import { AiCoachCard } from '@/components/ai-coach-card';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Clock } from 'lucide-react';
+import { AddTask } from '@/components/add-task';
 
 export default function DashboardPage() {
-  const pendingTasks = MOCK_TASKS.filter(t => t.status === 'pending').length;
+  const pendingTasks = MOCK_TASKS.filter(t => t.status === 'pendente').length;
   const completedTasks = MOCK_TASKS.length - pendingTasks;
 
   return (
@@ -14,7 +15,9 @@ export default function DashboardPage() {
       <PageHeader
         title="Bem-vindo de volta, Lucas!"
         description="Aqui está o que você tem para hoje."
-      />
+      >
+        <AddTask />
+      </PageHeader>
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
            <TaskList initialTasks={MOCK_TASKS} />

@@ -48,7 +48,7 @@ export const MOCK_TASKS: Tarefa[] = [
     id: '6',
     titulo: 'Concluir Projeto de APS',
     descricao: 'O projeto deve demonstrar a aplicação prática dos conceitos de modelagem orientada a objetos e o uso de ferramentas de IA para geração de código a partir de diagramas.',
-    dataEntrega: formatISO(addDays(today, 0)),
+    dataEntrega: formatISO(today),
     prioridade: 'alta',
     status: 'pendente',
   },
