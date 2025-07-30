@@ -68,8 +68,8 @@ export default function DashboardLayout({
 
   // Since we are bypassing auth, we need a mock user for the UI
   const mockUser = {
-    displayName: 'Lucas E',
-    email: 'lucaseman18@gmail.com',
+    displayName: 'Karol',
+    email: 'Karol@gmail.com',
     photoURL: `https://placehold.co/100x100.png`
   };
 

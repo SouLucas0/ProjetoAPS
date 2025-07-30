@@ -13,7 +13,7 @@ export default function DashboardPage() {
   return (
     <>
       <PageHeader
-        title="Bem-vindo de volta, Lucas!"
+        title="Bem-vindo de volta, Karol!"
         description="Aqui está o que você tem para hoje."
       >
         <AddTask />
