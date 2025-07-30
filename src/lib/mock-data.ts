@@ -46,8 +46,8 @@ export const MOCK_TASKS: Task[] = [
   },
   {
     id: '6',
-    title: 'Revisar Vocabulário de Francês',
-    description: 'Repassar a nova lista de vocabulário para a próxima prova.',
+    title: 'Concluir Projeto de APS',
+    description: 'O projeto deve demonstrar a aplicação prática dos conceitos de modelagem orientada a objetos e o uso de ferramentas de IA para geração de código a partir de diagramas.',
     dueDate: formatISO(addDays(today, 0)),
     priority: 'high',
     status: 'pending',
