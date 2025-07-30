@@ -105,6 +105,18 @@ export default function DashboardLayout({
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                isActive={isActive('/history')}
+                tooltip="Histórico"
+              >
+                <Link href="/history">
+                  <History />
+                  <span>Histórico</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton
                 asChild
