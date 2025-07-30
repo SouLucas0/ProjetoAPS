@@ -84,7 +84,7 @@ export default function RegisterPage() {
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input placeholder="Joana Silva" {...field} />
+                    <Input placeholder="Karol" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -98,7 +98,7 @@ export default function RegisterPage() {
                   <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="joana.silva@exemplo.com"
+                      placeholder="Karol@gmail.com"
                       {...field}
                     />
                   </FormControl>
