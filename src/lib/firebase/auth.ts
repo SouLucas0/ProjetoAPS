@@ -7,11 +7,23 @@ import {
   signOut as firebaseSignOut,
   updateProfile,
   sendPasswordResetEmail,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 import firebaseApp from './config';
 import { LoginFormData, RegisterFormData } from '../types';
 
 const auth = getAuth(firebaseApp);
+const googleProvider = new GoogleAuthProvider();
+
+export async function signInWithGoogle() {
+  try {
+    const userCredential = await signInWithPopup(auth, googleProvider);
+    return { user: userCredential.user, error: null };
+  } catch (error: any) {
+    return { user: null, error: error.message };
+  }
+}
 
 export async function login(data: LoginFormData) {
   try {
