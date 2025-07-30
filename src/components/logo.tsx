@@ -4,8 +4,8 @@ export function Logo(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 280 50"
-      width="210"
+      viewBox="0 0 100 50"
+      width="100"
       height="40"
       {...props}
     >
@@ -19,22 +19,11 @@ export function Logo(props: React.SVGProps<SVGSVGElement>) {
         x="10"
         y="35"
         fontFamily="Poppins, sans-serif"
-        fontSize="24"
-        fontWeight="600"
+        fontSize="28"
+        fontWeight="700"
         fill="url(#logo-gradient)"
       >
-        Organização
-      </text>
-      <text
-        x="145"
-        y="35"
-        fontFamily="Poppins, sans-serif"
-        fontSize="24"
-        fontWeight="400"
-        fill="hsl(var(--foreground))"
-        opacity="0.8"
-      >
-        Acadêmica
+        SIOA
       </text>
     </svg>
   );
