@@ -17,25 +17,25 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { MOCK_TASKS } from '@/lib/mock-data';
 import { format, parseISO } from 'date-fns';
-import { type Task } from '@/lib/types';
+import { type Tarefa } from '@/lib/types';
 import { CheckCircle2 } from 'lucide-react';
 import { ptBR } from 'date-fns/locale';
 
 export default function HistoryPage() {
   const completedTasks = MOCK_TASKS.filter(
-    (task) => task.status === 'completed'
-  ).sort((a,b) => parseISO(b.completionDate!).getTime() - parseISO(a.completionDate!).getTime());
+    (task) => task.status === 'concluida'
+  ).sort((a,b) => parseISO(b.dataConclusao!).getTime() - parseISO(a.dataConclusao!).getTime());
 
   const priorityBadgeVariant = {
-    high: 'destructive',
-    medium: 'secondary',
-    low: 'default',
+    alta: 'destructive',
+    media: 'secondary',
+    baixa: 'default',
   } as const;
 
   const priorityText = {
-    high: 'Alta',
-    medium: 'Média',
-    low: 'Baixa',
+    alta: 'Alta',
+    media: 'Média',
+    baixa: 'Baixa',
   };
 
   return (
@@ -64,20 +64,20 @@ export default function HistoryPage() {
             </TableHeader>
             <TableBody>
               {completedTasks.length > 0 ? (
-                completedTasks.map((task: Task) => (
+                completedTasks.map((task: Tarefa) => (
                   <TableRow key={task.id}>
-                    <TableCell className="font-medium">{task.title}</TableCell>
+                    <TableCell className="font-medium">{task.titulo}</TableCell>
                     <TableCell>
-                      <Badge variant={priorityBadgeVariant[task.priority]}>
-                        {priorityText[task.priority]}
+                      <Badge variant={priorityBadgeVariant[task.prioridade]}>
+                        {priorityText[task.prioridade]}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      {format(parseISO(task.dueDate), "d 'de' MMMM 'de' yyyy", { locale: ptBR })}
+                      {format(parseISO(task.dataEntrega), "d 'de' MMMM 'de' yyyy", { locale: ptBR })}
                     </TableCell>
                     <TableCell>
-                      {task.completionDate
-                        ? format(parseISO(task.completionDate), "d 'de' MMMM 'de' yyyy", { locale: ptBR })
+                      {task.dataConclusao
+                        ? format(parseISO(task.dataConclusao), "d 'de' MMMM 'de' yyyy", { locale: ptBR })
                         : 'N/A'}
                     </TableCell>
                   </TableRow>
