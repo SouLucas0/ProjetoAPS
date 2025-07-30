@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { add, format, isBefore, isToday, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
@@ -18,9 +19,9 @@ const priorityIcons = {
 };
 
 const priorityText = {
-  high: 'High Priority',
-  medium: 'Medium Priority',
-  low: 'Low Priority',
+  high: 'Prioridade Alta',
+  medium: 'Prioridade Média',
+  low: 'Prioridade Baixa',
 };
 
 const priorityBadgeVariant = {
@@ -28,6 +29,12 @@ const priorityBadgeVariant = {
   medium: 'secondary',
   low: 'default',
 } as const;
+
+const priorityDisplayText = {
+  high: 'Alta',
+  medium: 'Média',
+  low: 'Baixa',
+};
 
 export function TaskList({ initialTasks }: { initialTasks: Task[] }) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
@@ -49,8 +56,8 @@ export function TaskList({ initialTasks }: { initialTasks: Task[] }) {
     if (isCompleted) {
       const task = tasks.find(t => t.id === taskId);
       toast({
-        title: 'Task Completed!',
-        description: `Great job on finishing "${task?.title}"!`,
+        title: 'Tarefa Concluída!',
+        description: `Parabéns por terminar "${task?.title}"!`,
         action: (
           <div className="p-2 rounded-full bg-green-500/20">
              <CheckCircle2 className="h-5 w-5 text-green-500" />
@@ -77,10 +84,10 @@ export function TaskList({ initialTasks }: { initialTasks: Task[] }) {
     const upcoming = pendingTasks.filter(task => !overdue.includes(task) && !dueToday.includes(task) && !dueTomorrow.includes(task));
     
     return [
-      { title: 'Overdue', tasks: overdue, icon: <AlertCircle className="text-destructive"/> },
-      { title: 'Due Today', tasks: dueToday, icon: <ArrowRight className="text-primary"/> },
-      { title: 'Due Tomorrow', tasks: dueTomorrow, icon: <Calendar className="text-muted-foreground"/> },
-      { title: 'Upcoming', tasks: upcoming, icon: <Calendar className="text-muted-foreground"/> }
+      { title: 'Atrasadas', tasks: overdue, icon: <AlertCircle className="text-destructive"/> },
+      { title: 'Para Hoje', tasks: dueToday, icon: <ArrowRight className="text-primary"/> },
+      { title: 'Para Amanhã', tasks: dueTomorrow, icon: <Calendar className="text-muted-foreground"/> },
+      { title: 'Próximas', tasks: upcoming, icon: <Calendar className="text-muted-foreground"/> }
     ].filter(group => group.tasks.length > 0);
 
   }, [pendingTasks]);
@@ -147,11 +154,11 @@ export function TaskList({ initialTasks }: { initialTasks: Task[] }) {
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mt-2">
                           <div className="flex items-center gap-2" title={priorityText[task.priority]}>
                             {priorityIcons[task.priority]}
-                            <Badge variant={priorityBadgeVariant[task.priority]}>{task.priority}</Badge>
+                            <Badge variant={priorityBadgeVariant[task.priority]}>{priorityDisplayText[task.priority]}</Badge>
                           </div>
                           <div className="flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
-                            <span>{format(parseISO(task.dueDate), 'MMM d, yyyy')}</span>
+                            <span>{format(parseISO(task.dueDate), "d 'de' MMMM 'de' yyyy", { locale: ptBR })}</span>
                           </div>
                         </div>
                       </div>
@@ -167,9 +174,9 @@ export function TaskList({ initialTasks }: { initialTasks: Task[] }) {
         <Card className="text-center p-8 border-dashed">
           <CardContent className="flex flex-col items-center gap-4">
             <CheckCircle2 className="h-16 w-16 text-green-500" />
-            <h3 className="font-headline text-2xl">All tasks completed!</h3>
+            <h3 className="font-headline text-2xl">Todas as tarefas concluídas!</h3>
             <p className="text-muted-foreground">
-              You're all caught up. Time for a well-deserved break!
+              Você está em dia. Hora de um merecido descanso!
             </p>
           </CardContent>
         </Card>

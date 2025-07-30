@@ -53,8 +53,8 @@ export default function SettingsPage() {
 
   function onSubmit(data: SettingsFormValues) {
     toast({
-      title: 'Settings Saved',
-      description: 'Your notification preferences have been updated.',
+      title: 'Configurações Salvas',
+      description: 'Suas preferências de notificação foram atualizadas.',
     });
     console.log(data);
   }
@@ -62,16 +62,16 @@ export default function SettingsPage() {
   return (
     <>
       <PageHeader
-        title="Settings"
-        description="Manage your notification and alert preferences."
+        title="Configurações"
+        description="Gerencie suas preferências de notificação e alerta."
       />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>Notifications</CardTitle>
+              <CardTitle>Notificações</CardTitle>
               <CardDescription>
-                Choose how you want to be notified about your tasks.
+                Escolha como você quer ser notificado sobre suas tarefas.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -82,10 +82,10 @@ export default function SettingsPage() {
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                     <div className="space-y-0.5">
                       <FormLabel className="text-base">
-                        Email Notifications
+                        Notificações por E-mail
                       </FormLabel>
                       <FormDescription>
-                        Receive emails for important task updates and reminders.
+                        Receba e-mails para atualizações e lembretes importantes de tarefas.
                       </FormDescription>
                     </div>
                     <FormControl>
@@ -104,10 +104,10 @@ export default function SettingsPage() {
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                     <div className="space-y-0.5">
                       <FormLabel className="text-base">
-                        Push Notifications
+                        Notificações Push
                       </FormLabel>
                       <FormDescription>
-                        Get push notifications on your devices. (Coming soon!)
+                        Receba notificações push em seus dispositivos. (Em breve!)
                       </FormDescription>
                     </div>
                     <FormControl>
@@ -125,9 +125,9 @@ export default function SettingsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Task Alerts</CardTitle>
+              <CardTitle>Alertas de Tarefa</CardTitle>
               <CardDescription>
-                Select which specific task alerts you want to receive.
+                Selecione quais alertas de tarefa específicos você deseja receber.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 pt-6">
@@ -143,9 +143,9 @@ export default function SettingsPage() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel>Near Due Date</FormLabel>
+                      <FormLabel>Perto da Data de Entrega</FormLabel>
                       <FormDescription>
-                        Get an alert when a task is approaching its due date.
+                        Receba um alerta quando uma tarefa estiver se aproximando da data de entrega.
                       </FormDescription>
                     </div>
                   </FormItem>
@@ -164,10 +164,9 @@ export default function SettingsPage() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel>Overdue Tasks</FormLabel>
+                      <FormLabel>Tarefas Atrasadas</FormLabel>
                       <FormDescription>
-                        Receive alerts for tasks that have passed their due
-                        date.
+                        Receba alertas para tarefas que já passaram da data de entrega.
                       </FormDescription>
                     </div>
                   </FormItem>
@@ -175,7 +174,7 @@ export default function SettingsPage() {
               />
             </CardContent>
             <CardFooter>
-              <Button type="submit">Save Changes</Button>
+              <Button type="submit">Salvar Alterações</Button>
             </CardFooter>
           </Card>
         </form>

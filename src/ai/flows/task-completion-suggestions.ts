@@ -12,13 +12,13 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const TaskCompletionSuggestionsInputSchema = z.object({
-  studentId: z.string().describe('The ID of the student.'),
-  taskHistory: z.string().describe('The student\'s task history in JSON format.'),
+  studentId: z.string().describe('O ID do estudante.'),
+  taskHistory: z.string().describe('O histórico de tarefas do estudante em formato JSON.'),
 });
 export type TaskCompletionSuggestionsInput = z.infer<typeof TaskCompletionSuggestionsInputSchema>;
 
 const TaskCompletionSuggestionsOutputSchema = z.object({
-  suggestions: z.string().describe('AI-generated suggestions for improving task completion based on past history.'),
+  suggestions: z.string().describe('Sugestões geradas por IA para melhorar a conclusão de tarefas com base no histórico passado.'),
 });
 export type TaskCompletionSuggestionsOutput = z.infer<typeof TaskCompletionSuggestionsOutputSchema>;
 
@@ -30,13 +30,13 @@ const prompt = ai.definePrompt({
   name: 'taskCompletionSuggestionsPrompt',
   input: {schema: TaskCompletionSuggestionsInputSchema},
   output: {schema: TaskCompletionSuggestionsOutputSchema},
-  prompt: `You are an AI task coach providing suggestions to students for improving task completion based on their past history.
+  prompt: `Você é um coach de tarefas de IA que fornece sugestões a estudantes para melhorar a conclusão de tarefas com base em seu histórico passado.
 
-  Analyze the student\'s task history and provide personalized suggestions for improving task completion.
+  Analise o histórico de tarefas do estudante e forneça sugestões personalizadas para melhorar a conclusão das tarefas. Responda em Português do Brasil.
 
-  Task History: {{{taskHistory}}}
+  Histórico de Tarefas: {{{taskHistory}}}
 
-  Suggestions:`,
+  Sugestões:`,
 });
 
 const taskCompletionSuggestionsFlow = ai.defineFlow(

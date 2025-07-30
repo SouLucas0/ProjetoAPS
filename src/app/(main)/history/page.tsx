@@ -19,6 +19,7 @@ import { MOCK_TASKS } from '@/lib/mock-data';
 import { format, parseISO } from 'date-fns';
 import { type Task } from '@/lib/types';
 import { CheckCircle2 } from 'lucide-react';
+import { ptBR } from 'date-fns/locale';
 
 export default function HistoryPage() {
   const completedTasks = MOCK_TASKS.filter(
@@ -31,28 +32,34 @@ export default function HistoryPage() {
     low: 'default',
   } as const;
 
+  const priorityText = {
+    high: 'Alta',
+    medium: 'Média',
+    low: 'Baixa',
+  };
+
   return (
     <>
       <PageHeader
-        title="Task History"
-        description="A record of all your completed tasks."
+        title="Histórico de Tarefas"
+        description="Um registro de todas as suas tarefas concluídas."
       />
       <Card>
         <CardHeader>
-          <CardTitle>Completed Tasks</CardTitle>
+          <CardTitle>Tarefas Concluídas</CardTitle>
           <CardDescription>
-            You have completed {completedTasks.length} tasks. Keep up the great
-            work!
+            Você concluiu {completedTasks.length} tarefas. Continue o ótimo
+            trabalho!
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Task</TableHead>
-                <TableHead>Priority</TableHead>
-                <TableHead>Due Date</TableHead>
-                <TableHead>Completion Date</TableHead>
+                <TableHead>Tarefa</TableHead>
+                <TableHead>Prioridade</TableHead>
+                <TableHead>Data de Entrega</TableHead>
+                <TableHead>Data de Conclusão</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -62,15 +69,15 @@ export default function HistoryPage() {
                     <TableCell className="font-medium">{task.title}</TableCell>
                     <TableCell>
                       <Badge variant={priorityBadgeVariant[task.priority]}>
-                        {task.priority}
+                        {priorityText[task.priority]}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      {format(parseISO(task.dueDate), 'MMM d, yyyy')}
+                      {format(parseISO(task.dueDate), "d 'de' MMMM 'de' yyyy", { locale: ptBR })}
                     </TableCell>
                     <TableCell>
                       {task.completionDate
-                        ? format(parseISO(task.completionDate), 'MMM d, yyyy')
+                        ? format(parseISO(task.completionDate), "d 'de' MMMM 'de' yyyy", { locale: ptBR })
                         : 'N/A'}
                     </TableCell>
                   </TableRow>
@@ -78,7 +85,7 @@ export default function HistoryPage() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={4} className="h-24 text-center">
-                    No completed tasks yet.
+                    Ainda não há tarefas concluídas.
                   </TableCell>
                 </TableRow>
               )}
@@ -90,9 +97,9 @@ export default function HistoryPage() {
          <Card className="mt-6 text-center p-8 border-dashed">
           <CardContent className="flex flex-col items-center gap-4">
             <CheckCircle2 className="h-16 w-16 text-muted-foreground" />
-            <h3 className="font-headline text-2xl">History is Empty</h3>
+            <h3 className="font-headline text-2xl">O histórico está vazio</h3>
             <p className="text-muted-foreground">
-              Once you complete some tasks, they will show up here.
+              Assim que você concluir algumas tarefas, elas aparecerão aqui.
             </p>
           </CardContent>
         </Card>

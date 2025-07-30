@@ -29,11 +29,11 @@ export function AiCoachCard({ tasks }: { tasks: Task[] }) {
       if (result.suggestions) {
         setSuggestions(result.suggestions);
       } else {
-        setError('Could not get suggestions at this time.');
+        setError('Não foi possível obter sugestões no momento.');
       }
     } catch (err) {
       console.error(err);
-      setError('An error occurred while fetching suggestions.');
+      setError('Ocorreu um erro ao buscar sugestões.');
     } finally {
       setLoading(false);
     }
@@ -44,7 +44,7 @@ export function AiCoachCard({ tasks }: { tasks: Task[] }) {
     if (JSON.parse(taskHistory).length > 0) {
       fetchSuggestions();
     } else {
-      setSuggestions("Complete some tasks to get personalized suggestions from your AI coach!");
+      setSuggestions("Conclua algumas tarefas para obter sugestões personalizadas do seu coach de IA!");
       setLoading(false);
     }
   }, [taskHistory]);
@@ -65,7 +65,7 @@ export function AiCoachCard({ tasks }: { tasks: Task[] }) {
         <div className="text-center text-destructive-foreground/80">
           <p>{error}</p>
           <Button variant="secondary" size="sm" onClick={fetchSuggestions} className="mt-4">
-            Try Again
+            Tentar Novamente
           </Button>
         </div>
       );
@@ -92,14 +92,14 @@ export function AiCoachCard({ tasks }: { tasks: Task[] }) {
       <CardHeader>
         <CardTitle className="font-headline text-2xl flex items-center gap-2">
           <Lightbulb />
-          AI Task Coach
+          Coach de Tarefas IA
         </CardTitle>
       </CardHeader>
       <CardContent>
           {renderContent()}
           <Button variant="secondary" size="sm" className="mt-4 w-full" onClick={fetchSuggestions} disabled={loading}>
             <Zap className="mr-2 h-4 w-4" />
-            {loading ? 'Generating...' : 'Regenerate Suggestions'}
+            {loading ? 'Gerando...' : 'Gerar Novas Sugestões'}
           </Button>
       </CardContent>
     </Card>

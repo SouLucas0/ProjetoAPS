@@ -51,11 +51,11 @@ export default function DashboardLayout({
               <SidebarMenuButton
                 asChild
                 isActive={isActive('/')}
-                tooltip="Dashboard"
+                tooltip="Painel"
               >
                 <Link href="/">
                   <LayoutDashboard />
-                  <span>Dashboard</span>
+                  <span>Painel</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -63,11 +63,11 @@ export default function DashboardLayout({
               <SidebarMenuButton
                 asChild
                 isActive={isActive('/history')}
-                tooltip="Task History"
+                tooltip="Histórico de Tarefas"
               >
                 <Link href="/history">
                   <History />
-                  <span>Task History</span>
+                  <span>Histórico</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -75,11 +75,11 @@ export default function DashboardLayout({
               <SidebarMenuButton
                 asChild
                 isActive={isActive('/settings')}
-                tooltip="Settings"
+                tooltip="Configurações"
               >
                 <Link href="/settings">
                   <Settings />
-                  <span>Settings</span>
+                  <span>Configurações</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -89,20 +89,20 @@ export default function DashboardLayout({
           <Separator className="my-2" />
           <div className="flex items-center gap-3 p-2">
             <Avatar>
-              <AvatarImage src="https://placehold.co/100x100.png" alt="User Avatar" data-ai-hint="profile picture" />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarImage src="https://placehold.co/100x100.png" alt="Avatar do Usuário" data-ai-hint="profile picture" />
+              <AvatarFallback>JS</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <span className="font-semibold text-sm">Jane Doe</span>
+              <span className="font-semibold text-sm">Joana Silva</span>
               <span className="text-xs text-muted-foreground">
-                jane.doe@example.com
+                joana.silva@exemplo.com
               </span>
             </div>
           </div>
           <Button variant="ghost" className="w-full justify-start mt-2" asChild>
             <Link href="/login">
               <LogOut className="mr-2 h-4 w-4" />
-              Log Out
+              Sair
             </Link>
           </Button>
         </SidebarFooter>
