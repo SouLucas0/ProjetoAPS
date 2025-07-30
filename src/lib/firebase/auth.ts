@@ -8,6 +8,7 @@ import {
   updateProfile,
   sendPasswordResetEmail,
   GoogleAuthProvider,
+  GithubAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
 import firebaseApp from './config';
@@ -15,10 +16,20 @@ import { LoginFormData, RegisterFormData } from '../types';
 
 const auth = getAuth(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 export async function signInWithGoogle() {
   try {
     const userCredential = await signInWithPopup(auth, googleProvider);
+    return { user: userCredential.user, error: null };
+  } catch (error: any) {
+    return { user: null, error: error.message };
+  }
+}
+
+export async function signInWithGithub() {
+  try {
+    const userCredential = await signInWithPopup(auth, githubProvider);
     return { user: userCredential.user, error: null };
   } catch (error: any) {
     return { user: null, error: error.message };
