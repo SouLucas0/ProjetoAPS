@@ -44,26 +44,38 @@ export default function DashboardLayout({
   const { toast } = useToast();
   const isActive = (path: string) => pathname === path;
   
-  React.useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
+  // React.useEffect(() => {
+  //   if (!loading && !user) {
+  //     router.push('/login');
+  //   }
+  // }, [user, loading, router]);
   
   const handleSignOut = async () => {
-    const { error } = await signOut();
-    if (error) {
-       toast({
-        variant: 'destructive',
-        title: 'Erro ao sair',
-        description: 'Não foi possível fazer logout. Tente novamente.',
-      });
-    } else {
-      router.push('/login');
-    }
+    // For testing purposes, just redirect.
+    router.push('/login');
+    
+    // const { error } = await signOut();
+    // if (error) {
+    //    toast({
+    //     variant: 'destructive',
+    //     title: 'Erro ao sair',
+    //     description: 'Não foi possível fazer logout. Tente novamente.',
+    //   });
+    // } else {
+    //   router.push('/login');
+    // }
   }
 
-  if (loading || !user) {
+  // Since we are bypassing auth, we need a mock user for the UI
+  const mockUser = {
+    displayName: 'Usuário Teste',
+    email: 'teste@exemplo.com',
+    photoURL: `https://placehold.co/100x100.png`
+  };
+
+  const displayUser = user || mockUser;
+
+  if (loading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin" />
@@ -123,13 +135,13 @@ export default function DashboardLayout({
           <Separator className="my-2" />
           <div className="flex items-center gap-3 p-2">
             <Avatar>
-              <AvatarImage src={user.photoURL ?? "https://placehold.co/100x100.png"} alt="Avatar do Usuário" data-ai-hint="profile picture" />
-              <AvatarFallback>{user.displayName?.charAt(0).toUpperCase()}</AvatarFallback>
+              <AvatarImage src={displayUser.photoURL ?? "https://placehold.co/100x100.png"} alt="Avatar do Usuário" data-ai-hint="profile picture" />
+              <AvatarFallback>{displayUser.displayName?.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <span className="font-semibold text-sm">{user.displayName}</span>
+              <span className="font-semibold text-sm">{displayUser.displayName}</span>
               <span className="text-xs text-muted-foreground">
-                {user.email}
+                {displayUser.email}
               </span>
             </div>
           </div>

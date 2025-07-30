@@ -9,13 +9,13 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!loading && user) {
-      router.push('/');
-    }
-  }, [user, loading, router]);
+  // useEffect(() => {
+  //   if (!loading && user) {
+  //     router.push('/');
+  //   }
+  // }, [user, loading, router]);
 
-  if (loading || user) {
+  if (loading) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
         {/* You can add a loader here */}
